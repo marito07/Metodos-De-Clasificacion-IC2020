@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Practica 3 de IC</title>
+        <script src="static/js/jquery-3.5.1.min.js"></script> <!--  Jquery  -->
+        <script type="text/javascript" src="static/js/main.js"></script> <!-- Funciones de Javascript implementadas -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> <!-- Bootstrap -->
+    </head>
+    <body>
+        <div class="container d-flex flex-column">
+            <div class="header d-flex flex-column w-100">
+                <h1 class="w-100">Practica 3 - M&eacutetodos de clasificaci&oacuten 2019/20</h1>
+                <h4>Realizada por Mario Torres Cabañas</h4>
+            </div>
+            <div class="content d-flex mt-3 flex-column">
+                <div class="d-flex flex-row align-items-center">
+                    <h5 class="d-flex flex-row">Fichero <div class="ml-2 font-italic">Iris2Clases.txt</div>: </h5>
+                    
+                    <input class=" ml-3 mb-2" type="file" id="iris2clases">
+                </div>
+
+                <div class="d-flex flex-row align-items-center">
+                    <h5 class="d-flex flex-row">Fichero de Ejemplo: </h5>
+                    
+                    <input class=" ml-3 mb-2" type="file" id="testIris">
+                </div>
+
+                <div>
+                    <button class="btn btn-primary w-25 mt-5" id="startKMedias">Empezar K-Medias</button>
+                    <button class="btn btn-success w-25 mt-5" id="startBayes">Empezar Bayes</button>
+                    <button  class="btn btn-secondary w-25 mt-5" id="startlloyd">Empezar Lloyd</button>
+                    <button class="btn btn-danger mt-5" onClick="window.location.reload();">Recargar p&aacutegina</button>
+
+                </div>
+                <div id="resultado">
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
