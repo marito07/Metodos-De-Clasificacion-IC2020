@@ -13,6 +13,8 @@ $(function () {
   /* Valores de para Bayes */
   var matrizCovSetosa = [];
   var matrizCovVersiColor = [];
+  var mediaSetosa = [];
+  var mediaVersiColor = [];
 
 
   $('#startKMedias').prop('disabled', true); 
@@ -20,6 +22,7 @@ $(function () {
   $('#startlloyd').prop('disabled', true); 
   $('#testIris').prop('disabled', true); 
 
+  // Lectura de datos ----------------------------------------------------------
   $('#iris2clases').change(function () { // Carga las clases Iris-Setosa e Iris-Versicolor del archivo "Iris2Clases.txt"
     var input = event.target;
     var reader = new FileReader();
@@ -54,8 +57,6 @@ $(function () {
     };
     reader.readAsText(input.files[0]);
   });
-
-
   $('#testIris').change(function () { // Carga el fichero de ejemplo, (TestIris01.txt, TestIris02.txt, TestIris03.txt)
     var input = event.target;
     var reader = new FileReader();
@@ -75,7 +76,7 @@ $(function () {
     $('#startBayes').prop('disabled', false); 
     $('#startlloyd').prop('disabled', false); 
   });
-
+  // ---------------------------------------------------------------------------
   $('#startKMedias').click(function (event) {
     $('#startKMedias').prop('disabled', true); 
     $('#startBayes').prop('disabled', true); 
@@ -103,8 +104,54 @@ $(function () {
     $('#startKMedias').prop('disabled', true); 
     $('#startBayes').prop('disabled', true); 
     $('#startlloyd').prop('disabled', true); 
-    console.log('Click a Bayes')
-  })
+
+    /* Calculo de las medias */
+    
+    for(let i = 0; i < irisSetosa[0].length; i++){ // Suma de Iris-Setosa (Se suman a la vez dado que tienen el mismo numero de elementos)
+      let auxSetosa = 0;
+      let auxVersiColor = 0;
+      for(let j = 0; j < irisSetosa.length; j++) {
+        auxSetosa += irisSetosa[j][i];
+        auxVersiColor += irisVersicolor[j][i];
+      }
+      mediaSetosa.push(auxSetosa*(1/irisSetosa.length));
+      mediaVersiColor.push(auxVersiColor*(1/irisVersicolor.length));
+    }
+    console.log('Media de Iris-Setosa ----------')
+    console.log(mediaSetosa);
+    console.log('Media de Iris-VersiColor ----------')
+    console.log(mediaVersiColor);
+
+    let restoSetosa = [];
+    let restoVersiColor = [];
+    for(let i = 0; i < mediaSetosa.length; i++) {
+      restoSetosa.push(dataEjemplo[i] - mediaSetosa[i]);
+      restoVersiColor.push(dataEjemplo[i] - mediaVersiColor[i]);
+    }
+    let d_Setosa = 0;
+    let d_VersiColor = 0;
+    for(let i = 0; i < restoSetosa.length; i++) {
+      d_Setosa += Math.pow(restoSetosa[i], 2);
+      d_VersiColor += Math.pow(restoVersiColor[i], 2);
+    }
+
+    console.log('Result Setosa -----');
+    console.log(d_Setosa);
+    console.log('Result VersiColor -----');
+    console.log(d_VersiColor);
+
+
+    var resultado = '';
+    if(d_Setosa < d_VersiColor){
+      resultado = 'Iris-setosa';
+    }
+    else{
+      resultado = 'Iris-versicolor';
+    }
+
+    console.log('El resultado es: ' + resultado);
+    $('#resultado').append('<h5> El resultado es: ' + resultado + '</h5>')
+  });
 
   function calcularMatProbabilidadesK() {
     var salir = false; // indica si se han llegado a las condiciones
